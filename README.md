@@ -15,9 +15,10 @@ et des ul  afin de lister notre tableau.
 Pour ce faire, nous allons untiliser la syntax de svelte pour boucler des <li>
 
 ce qui va nous donner : 
+```
 <ul>
       {#each todos as todo}
             <li>todo.name</li>
       {/each}
 </ul>
-
+```
