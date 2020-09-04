@@ -18,7 +18,7 @@ ce qui va nous donner :
 ```
 <ul>
       {#each todos as todo}
-            <li>todo.name</li>
+            <li>{todo.name}</li>
       {/each}
 </ul>
 ```
@@ -35,8 +35,46 @@ on crée le button Ajouter afin d'ajouter une li sur base de ce qu'on a rentré 
 
 ```
 <input type='text' bind:value={newTodo}> 
+
 <button on:click={addTodo}>
       Ajouter
 <button>
 ```
+créons la fonction addTodo 
 
+```
+      function addTodo (){
+            todos=[...todos,{
+                  name:newTodo,
+                  completed:false
+            }]
+            newTodo =''
+      }
+```
+
+maintenant, nous pouvons ajouter des tâches mais passons à la partie principale de la todo list : pouvoir cocher si la tâche est finie ou pas.
+
+Pour cela nous allons ajouter un input checkbox dans le li 
+
+```
+<li>
+	<input type='checkbox' bind:checked={todo.completed}>
+	{todo.name}
+</li>
+```
+
+ainsi qu'un label en dessous de notre h1 avec une checkbox qui nous permettra de filtrer les tâches.
+
+```
+<h1>
+	Ma liste de tâches
+</h1>
+<label><input type='checkbox' bind:checked={showCompleted}> Afficher les tâches finies </label>
+
+```
+
+et on déclare la variable showCompleted a true 
+
+```
+let showCompleted =true
+```
