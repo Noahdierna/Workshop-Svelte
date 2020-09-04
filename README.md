@@ -78,3 +78,48 @@ et on déclare la variable showCompleted a true
 ```
 let showCompleted =true
 ```
+Pour pouvoir filtrer les tâches finies nous allons créer une variable filteredTodo 
+
+```
+let filterdTodos = todos.filter(t=> t.completed ===false)
+```
+cela nous donne une nouvelle liste que l'on pourra utiliser à la place de todos dans notre {#each}
+
+```
+	{#each filterdTodos as todo}
+```
+
+ça devrait normalement marcher mais malheureusement il va falloire changer quelques variables dans le code pour rendre tout cela reactif.
+
+notre variable filteredTodo n'est pas réactive donc nous allons utiliser un élément de la syntaxe de Svelte  le ``` $: ``` 
+
+```
+	$: filterdTodos = todos.filter(t=> t.completed ===false)
+```
+
+le ``` $: ``` devant une variable veut dire que cette dernière dépendra des choses utilisées pour la générer. ici on parle de todos.
+
+On vaégalement changer le bind:checked de la checkbox des tâches en créant une fonction qui detectera le changement 
+
+```
+			<input type='checkbox' on:change:{() => changeTodo(todo)} >
+ ```
+
+ et la fonction changeTodo 
+
+  ```
+  	function changeTodo (todo){
+		todos = todos.map(t=>{
+			if (t=== todo) {
+				return {...todo,completed: !t.completed}
+			}
+			return t 
+		})
+	}
+ ```
+
+dans filteredTodo il va falloire déclarer que si showCompleted est true on ne filtre aucune valeur  sinon les tâches qui ne sont pas cochées 
+
+```
+$: filterdTodos = todos.filter(t=> showCompleted === true ? true :  t.completed ===false)
+```
