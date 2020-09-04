@@ -102,7 +102,7 @@ le ``` $: ``` devant une variable veut dire que cette dernière dépendra des ch
 On vaégalement changer le bind:checked de la checkbox des tâches en créant une fonction qui detectera le changement 
 
 ```
-			<input type='checkbox' on:change:{() => changeTodo(todo)} >
+	<input type='checkbox' on:change:{() => changeTodo(todo)} >
  ```
 
  et la fonction changeTodo 
@@ -123,3 +123,11 @@ dans filteredTodo il va falloire déclarer que si showCompleted est true on ne f
 ```
 $: filterdTodos = todos.filter(t=> showCompleted === true ? true :  t.completed ===false)
 ```
+
+et pour finir, gardons la valeurs de la checkbox de nos tâches 
+
+```
+	<input type='checkbox' checked={todo.completed} on:change={() =>changeTodo(todo)}>
+```
+
+Bravo ! Vous avez réalisé votre première application avec Svelte ! 
